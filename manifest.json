@@ -1,0 +1,38 @@
+{
+  "Actions": [
+    {
+      "Icon": "Images/icon",
+      "Name": "OSD Sidekick",
+      "States": [
+        {
+          "Image": "Images/pluginAction",
+          "TitleAlignment": "middle",
+          "FontSize": "12"
+        }
+      ],
+      "SupportedInMultiActions": true,
+      "Tooltip": "Adjust display settings for osd-sidekick compatible monitors",
+      "UUID": "com.drosocode.osdsidekick",
+      "PropertyInspectorPath": "PropertyInspector/Main.html"
+    }
+  ],
+  "Author": "DrosoCode",
+  "Description": "Adjust display settings for osd-sidekick compatible monitors",
+  "Name": "OSD Sidekick",
+  "Icon": "Images/pluginIcon",
+  "URL": "https://github.com/drosoCode/streamdeck-osdsidekick",
+  "Version": "0.1",
+  "CodePath": "com.drosocode.osdsidekick",
+  "Category": "OSD Sidekick",
+  "CategoryIcon": "Images/categoryIcon",
+  "OS": [
+    {
+      "Platform": "windows",
+      "MinimumVersion": "10"
+    }
+  ],
+  "SDKVersion": 2,
+  "Software": {
+    "MinimumVersion": "4.4.1"
+  }
+}
