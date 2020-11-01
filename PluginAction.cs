@@ -144,10 +144,24 @@ namespace OSDSidekick
 
         private void SetValue(int display, double value)
         {
-            if (settings.Setting == "brightness")
+            if (settings.Setting == "brightness") // between 0 and 100
                 SetOSD(display, 3, new byte[] { 16, 0, (byte)value });
-            else if (settings.Setting == "contrast")
+            else if (settings.Setting == "contrast") // between 0 and 100
                 SetOSD(display, 3, new byte[] { 18, 0, (byte)value });
+            else if (settings.Setting == "sharpness") // between 0 and 10
+                SetOSD(display, 3, new byte[] { 135, 0, (byte)value });
+            else if (settings.Setting == "gamma") // between 0 and 5
+                SetOSD(display, 3, new byte[] { 224, 7, (byte)value });
+            else if (settings.Setting == "colortemp") // between 0 and 2
+                SetOSD(display, 3, new byte[] { 224, 3, (byte)value });
+            else if (settings.Setting == "colorvibrance") // between 0 and 20
+                SetOSD(display, 3, new byte[] { 224, 8, (byte)value });
+            else if (settings.Setting == "blackequalizer") // between 0 and 20
+                SetOSD(display, 3, new byte[] { 224, 2, (byte)value });
+            else if (settings.Setting == "lowbluelight") // between 0 and 10
+                SetOSD(display, 3, new byte[] { 224, 11, (byte)value });
+            else if (settings.Setting == "input") // between 0 and 2
+               SetOSD(display, 3, new byte[] { 224, 45, (byte)value });
         }
 
         private void SetOSD(int display, int count, byte[] ary)

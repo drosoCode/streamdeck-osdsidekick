@@ -10,4 +10,8 @@
 ## Configuration
 
 - The Monitor ID is the ID of the monitor that you want to change, it starts at 0, if negative, all monitors will be affected
-- The value is between 0 and 100
+- input and colortemp are between 0 and 2
+- gamma is between 0 and 5
+- sharpness and lowbluelight are between 0 and 10
+- colorvibrance and blackequalizer are between 0 and 20
+- brightness and contrast are between 0 and 100
