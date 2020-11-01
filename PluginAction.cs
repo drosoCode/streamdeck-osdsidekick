@@ -1,13 +1,7 @@
 ﻿using BarRaider.SdTools;
-using BarRaider.SdTools.Wrappers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
@@ -17,9 +11,6 @@ namespace OSDSidekick
     [PluginActionId("com.drosocode.osdsidekick")]
     public class PluginAction : PluginBase
     {
-        [DllImport("GenLib.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int Gen_init();
-
         // Token: 0x06000186 RID: 390
         [DllImport("GenLib.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern bool Gen_SetOSD(int iHubIndex, IntPtr bytes, int size);
@@ -27,12 +18,6 @@ namespace OSDSidekick
         // Token: 0x06000187 RID: 391
         [DllImport("GenLib.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern bool Gen_GetOSD(int iHubIndex, IntPtr bytes, int size, IntPtr return_value, int rtn_length);
-
-        // Token: 0x06000188 RID: 392
-        [DllImport("GenLib.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern bool Gen_Close();
-
-        private int nbMonitors = 0;
 
         private class PluginSettings
         {
@@ -71,9 +56,7 @@ namespace OSDSidekick
                 this.settings = payload.Settings.ToObject<PluginSettings>();
             }
 
-            Logger.Instance.LogMessage(TracingLevel.INFO, "Initializing Monitor Connection");
-            nbMonitors = Gen_init();
-            Logger.Instance.LogMessage(TracingLevel.INFO, nbMonitors.ToString() + " monitors detected");
+            Logger.Instance.LogMessage(TracingLevel.INFO, Program.nbMonitors.ToString() + " monitors detected");
 
             Connection.OnApplicationDidLaunch += Connection_OnApplicationDidLaunch;
             Connection.OnApplicationDidTerminate += Connection_OnApplicationDidTerminate;
@@ -119,8 +102,6 @@ namespace OSDSidekick
 
         public override void Dispose()
         {
-            Logger.Instance.LogMessage(TracingLevel.INFO, "Closing Monitor Connection");
-            Gen_Close();
             Connection.OnApplicationDidLaunch -= Connection_OnApplicationDidLaunch;
             Connection.OnApplicationDidTerminate -= Connection_OnApplicationDidTerminate;
             Connection.OnDeviceDidConnect -= Connection_OnDeviceDidConnect;
@@ -142,7 +123,7 @@ namespace OSDSidekick
             double value = double.Parse(settings.Value);
             int id = Int32.Parse(settings.MonitorID);
             if (id < 0)
-                for(int i = 0; i < nbMonitors; i++)
+                for(int i = 0; i < Program.nbMonitors; i++)
                     SetValue(i, value);
             else
                 SetValue(id, value);
